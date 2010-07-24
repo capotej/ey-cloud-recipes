@@ -10,10 +10,20 @@ enable_package "dev-db/redis" do
   version "2.0.0rc3"
 end
 
-package "dev-db/redis" do
-  version "2.0.0rc3"
+#package "dev-db/redis" do
+#  version "2.0.0rc3"
+#  action :install
+#end
+
+remote_file "redis" do
+  path "/tmp/redis"
+  source "http://redis.googlecode.com/files/redis-2.0.0-rc3.tar.gz"
+  mode "0644"
+  #checksum "08da002l" # A SHA256 (or portion thereof) of the file.
   action :install
 end
+
+
 
 directory "/data/redis" do
   owner 'redis'
