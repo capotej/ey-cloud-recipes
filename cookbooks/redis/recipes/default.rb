@@ -4,14 +4,14 @@
 #
 
 #if ['util'].include?(node[:instance_role])
-if ['solo', 'app', 'app_master'].include?(node[:instance_role])
+#if ['solo', 'app', 'app_master'].include?(node[:instance_role])
 
 enable_package "dev-db/redis" do
-  version "1.3.12_pre1"
+  version "2.0.0rc3"
 end
 
 package "dev-db/redis" do
-  version "1.3.12_pre1"
+  version "2.0.0rc3"
   action :install
 end
 
@@ -54,4 +54,4 @@ end
 execute "monit reload" do
   action :run
 end
-end
+#end
