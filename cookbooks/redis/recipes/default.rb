@@ -3,8 +3,6 @@
 # Recipe:: default
 #
 
-if node[:instance_role] == 'db_master'
-
 remote_file "/tmp/redis2.tar.gz" do
   source "http://redis.googlecode.com/files/redis-2.0.0-rc3.tar.gz"
   mode "0644"
@@ -67,4 +65,4 @@ end
 execute "monit reload" do
   action :run
 end
-end
+
