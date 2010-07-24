@@ -31,7 +31,7 @@ template "/etc/redis_util.conf" do
     :pidfile => '/var/run/redis_util.pid',
     :basedir => '/data/redis',
     :logfile => '/data/redis/redis.log',
-    :port  => '6379',
+    :port  => '6380',
     :loglevel => 'notice',
     :timeout => 300000,
   })
@@ -47,7 +47,7 @@ template "/data/monit.d/redis_util.monitrc" do
     :configfile => '/etc/redis_util.conf',
     :pidfile => '/var/run/redis_util.pid',
     :logfile => '/data/redis',
-    :port => '6379',
+    :port => '6380',
   })
 end
 
