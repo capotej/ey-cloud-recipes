@@ -21,10 +21,9 @@ bash "compile-redis" do
   code "(cd /tmp/redis-2.0.0-rc3; make)"
 end
 
-
-bash "install-redis" do
-    files = %w{ redis-server redis-benchmark redis-cli redis-check-dump redis-check-aof }
-    files.each do |f|
+  files = %w{ redis-server redis-benchmark redis-cli redis-check-dump redis-check-aof }
+  files.each do |f|
+    bash "install-redis" do
       code "mv /tmp/redis-2.0.0-rc3/#{f} /usr/local/bin/#{f}"
     end
   end
