@@ -23,9 +23,11 @@ end
 
 
 bash "install-redis" do
-  code "mv /tmp/redis-2.0.0-rc3/bin/redis-server /usr/local/bin/redis-server"
-  code "mv /tmp/redis-2.0.0-rc3/bin/redis-cli /usr/local/bin/redis-cli"
-end
+    files = %w{ redis-server redis-benchmark redis-cli redis-check-dump redis-check-aof }
+    files.each do |f|
+      code "mv /tmp/redis-2.0.0-rc3/#{f} /usr/local/bin/#{f}"
+    end
+  end
 
 directory "/data/redis" do
   owner 'redis'
