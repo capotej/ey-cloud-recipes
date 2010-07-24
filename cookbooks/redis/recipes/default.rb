@@ -3,7 +3,8 @@
 # Recipe:: default
 #
 
-if ['util'].include?(node[:instance_role])
+#if ['util'].include?(node[:instance_role])
+if ['solo', 'app', 'app_master'].include?(node[:instance_role])
 
 enable_package "dev-db/redis" do
   version "1.3.12_pre1"
