@@ -18,13 +18,13 @@ bash "untar-redis" do
 end
 
 bash "compile-redis" do
-  code "(cd /tmp/redis2; make)"
+  code "(cd /tmp/redis-2.0.0-rc3; make)"
 end
 
 
 bash "install-redis" do
-  code "mv /tmp/redis2/bin/redis-server /usr/local/bin/redis-server"
-  code "mv /tmp/redis2/bin/redis-cli /usr/local/bin/redis-cli"
+  code "mv /tmp/redis-2.0.0-rc3/bin/redis-server /usr/local/bin/redis-server"
+  code "mv /tmp/redis-2.0.0-rc3/bin/redis-cli /usr/local/bin/redis-cli"
 end
 
 directory "/data/redis" do
