@@ -4,26 +4,35 @@
 #
 
 #if ['util'].include?(node[:instance_role])
-#if ['solo', 'app', 'app_master'].include?(node[:instance_role])
+if ['solo', 'app', 'app_master'].include?(node[:instance_role])
 
-enable_package "dev-db/redis" do
-  version "2.0.0rc3"
-end
+#enable_package "dev-db/redis" do
+#  version "2.0.0rc3"
+#end
 
 #package "dev-db/redis" do
 #  version "2.0.0rc3"
 #  action :install
 #end
 
-remote_file "redis" do
-  path "/tmp/redis"
+remote_file "/tmp/redis2.tar.gz" do
   source "http://redis.googlecode.com/files/redis-2.0.0-rc3.tar.gz"
   mode "0644"
   #checksum "08da002l" # A SHA256 (or portion thereof) of the file.
-  action :install
+  action :create_if_missing
 end
 
+Chef::Log.info("File downloaded")
 
+bash "untar-redis" do
+  code "(cd /tmp; tar zxvf /tmp/redis2.tar.gz)"
+end
+
+bash "install-redis" do
+  code "(cd /tmp/redis2; make)"
+  code "mv /tmp/redis2/bin/redis-server /usr/local/bin/redis-server"
+  code "mv /tmp/redis2/bin/redis-cli /usr/local/bin/redis-cli"
+end
 
 directory "/data/redis" do
   owner 'redis'
@@ -64,4 +73,4 @@ end
 execute "monit reload" do
   action :run
 end
-#end
+end
