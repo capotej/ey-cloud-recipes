@@ -19,16 +19,16 @@ bash "compile-redis" do
   code "(cd /tmp/redis-2.0.0-rc3; make)"
 end
 
-  files = %w{ redis-server redis-benchmark redis-cli redis-check-dump redis-check-aof }
-  files.each do |f|
-    bash "install-redis" do
-      code "mv /tmp/redis-2.0.0-rc3/#{f} /usr/local/bin/#{f}"
-    end
+files = %w{ redis-server redis-benchmark redis-cli redis-check-dump redis-check-aof }
+files.each do |f|
+  bash "install-#{f}" do
+    code "mv /tmp/redis-2.0.0-rc3/#{f} /usr/local/bin/#{f}"
   end
+end
 
 directory "/data/redis" do
-  owner 'redis'
-  group 'redis'
+  owner node[:owner_name]
+  owner node[:owner_name]
   mode 0755
   recursive true
 end
@@ -55,7 +55,7 @@ template "/data/monit.d/redis_util.monitrc" do
   source "redis.monitrc.erb"
   variables({
     :profile => '1',
-    :configfile => '/etc/redis_util.conf',
+              :configfile => '/etc/redis_util.conf',
     :pidfile => '/var/run/redis_util.pid',
     :logfile => '/data/redis',
     :port => '6380',
