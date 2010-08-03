@@ -36,7 +36,7 @@ directory "/db/redis2" do
   recursive true
 end
 
-template "/etc/redis/redis.conf" do
+template "/etc/redis2.conf" do
   owner 'root'
   group 'root'
   mode 0644
@@ -45,7 +45,7 @@ template "/etc/redis/redis.conf" do
               :pidfile => '/var/run/redis_util.pid',
               :basedir => '/db/redis2/',
               :logfile => '/db/redis2/redis.log',
-              :port  => '6380',
+              :port  => '7777',
               :loglevel => 'notice',
               :timeout => 300000,
   }) 
@@ -58,10 +58,10 @@ template "/data/monit.d/redis.monitrc" do
   source "redis.monitrc.erb"
   variables({
               :profile => '1',
-              :configfile => '/etc/redis/redis.conf',
+              :configfile => '/etc/redis2.conf',
               :pidfile => '/var/run/redis_util.pid',
               :logfile => '/db/redis2/',
-              :port => '6380',
+              :port => '7777',
   })
 end
 
