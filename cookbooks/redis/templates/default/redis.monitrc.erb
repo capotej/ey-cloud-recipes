@@ -1,4 +1,4 @@
-check process redis-<%= @profile %>
+check process redis2-<%= @profile %>
 with pidfile <%= @pidfile %>
   start program = "/usr/bin/redis-server <%= @configfile %>"
   stop program = "/usr/bin/redis-cli -p <%= @port %> shutdown"

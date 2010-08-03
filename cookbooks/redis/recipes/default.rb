@@ -43,7 +43,7 @@ template "/etc/redis/redis.conf" do
   source "redis.conf.erb"
   variables({
               :pidfile => '/var/run/redis_util.pid',
-              :basedir => '/data/redis/',
+              :basedir => '/db/redis/',
               :logfile => '/data/redis/redis.log',
               :port  => '6380',
               :loglevel => 'notice',
