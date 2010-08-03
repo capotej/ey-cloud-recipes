@@ -28,7 +28,7 @@ end
 
 directory "/data/redis" do
   owner node[:owner_name]
-  owner node[:owner_name]
+  group node[:owner_name]
   mode 0755
   recursive true
 end
@@ -40,7 +40,7 @@ template "/etc/redis/redis.conf" do
   source "redis.conf.erb"
   variables({
               :pidfile => '/var/run/redis_util.pid',
-              :basedir => '/data/redis',
+              :basedir => '/data/redis/',
               :logfile => '/data/redis/redis.log',
               :port  => '6380',
               :loglevel => 'notice',
@@ -57,7 +57,7 @@ template "/data/monit.d/redis_util.monitrc" do
               :profile => '1',
               :configfile => '/etc/redis_util.conf',
               :pidfile => '/var/run/redis_util.pid',
-              :logfile => '/data/redis',
+              :logfile => '/data/redis/',
               :port => '6380',
   })
 end
