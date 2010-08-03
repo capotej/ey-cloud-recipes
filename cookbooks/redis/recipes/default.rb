@@ -25,26 +25,26 @@ end
 files = %w{ redis-server redis-benchmark redis-cli redis-check-dump redis-check-aof }
 files.each do |f|
   bash "install-#{f}" do
-    code "mv /tmp/redis-2.0.0-rc4/#{f} /usr/bin/#{f}"
+    code "mv /tmp/redis-2.0.0-rc4/#{f} /usr/local/bin/#{f}"
   end
 end
 
-directory "/data/redis" do
+directory "/db/redis2" do
   owner node[:owner_name]
   group node[:owner_name]
   mode 0755
   recursive true
 end
 
-template "/etc/redis/redis.conf" do
+template "/etc/redis/redis2.conf" do
   owner 'root'
   group 'root'
   mode 0644
   source "redis.conf.erb"
   variables({
               :pidfile => '/var/run/redis_util.pid',
-              :basedir => '/db/redis/',
-              :logfile => '/data/redis/redis.log',
+              :basedir => '/db/redis2/',
+              :logfile => '/db/redis2/redis.log',
               :port  => '6380',
               :loglevel => 'notice',
               :timeout => 300000,
@@ -58,9 +58,9 @@ template "/data/monit.d/redis_util.monitrc" do
   source "redis.monitrc.erb"
   variables({
               :profile => '1',
-              :configfile => '/etc/redis_util.conf',
+              :configfile => '/etc/redis/redis2.conf',
               :pidfile => '/var/run/redis_util.pid',
-              :logfile => '/data/redis/',
+              :logfile => '/db/redis2/',
               :port => '6380',
   })
 end
