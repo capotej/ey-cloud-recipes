@@ -3,6 +3,9 @@
 # Recipe:: default
 #
 
+if ['solo', 'db'].include?(node[:instance_role])
+
+
 remote_file "/tmp/redis2rc4.tar.gz" do
   source "http://redis.googlecode.com/files/redis-2.0.0-rc4.tar.gz"
   mode "0644"
