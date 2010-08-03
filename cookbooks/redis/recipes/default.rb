@@ -3,7 +3,7 @@
 # Recipe:: default
 #
 
-if ['solo', 'db'].include?(node[:instance_role])
+if ['solo', 'db_master'].include?(node[:instance_role])
 
 
 remote_file "/tmp/redis2rc4.tar.gz" do
@@ -36,7 +36,7 @@ directory "/db/redis2" do
   recursive true
 end
 
-template "/etc/redis/redis2.conf" do
+template "/etc/redis2.conf" do
   owner 'root'
   group 'root'
   mode 0644
@@ -51,14 +51,14 @@ template "/etc/redis/redis2.conf" do
   }) 
 end
 
-template "/data/monit.d/redis_util.monitrc" do
+template "/data/monit.d/redis.monitrc" do
   owner 'root'
   group 'root'
   mode 0644
   source "redis.monitrc.erb"
   variables({
               :profile => '1',
-              :configfile => '/etc/redis/redis2.conf',
+              :configfile => '/etc/redis2.conf',
               :pidfile => '/var/run/redis_util.pid',
               :logfile => '/db/redis2/',
               :port => '6380',
