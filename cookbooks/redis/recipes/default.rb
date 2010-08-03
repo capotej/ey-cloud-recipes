@@ -3,7 +3,7 @@
 # Recipe:: default
 #
 
-remote_file "/tmp/redis2.tar.gz" do
+remote_file "/tmp/redis2rc4.tar.gz" do
   source "http://redis.googlecode.com/files/redis-2.0.0-rc4.tar.gz"
   mode "0644"
   action :create_if_missing
@@ -12,7 +12,7 @@ end
 Chef::Log.info("File downloaded")
 
 bash "untar-redis" do
-  code "(cd /tmp; tar zxvf /tmp/redis2.tar.gz)"
+  code "(cd /tmp; tar zxvf /tmp/redis2rc4.tar.gz)"
 end
 
 bash "compile-redis" do
