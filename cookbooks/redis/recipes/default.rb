@@ -9,7 +9,7 @@ if ['solo', 'db_master'].include?(node[:instance_role])
 remote_file "/tmp/redis-2.0.1.tar.gz" do
   source "http://redis.googlecode.com/files/redis-2.0.1.tar.gz"
   mode "0644"
-  action :create_if_missing
+  action :create
 end
 
 Chef::Log.info("File downloaded")
