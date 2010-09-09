@@ -6,8 +6,8 @@
 if ['solo', 'db_master'].include?(node[:instance_role])
 
 
-remote_file "/tmp/redis2.tar.gz" do
-  source "http://redis.googlecode.com/files/redis-2.0.0.tar.gz"
+remote_file "/tmp/redis-2.0.1.tar.gz" do
+  source "http://redis.googlecode.com/files/redis-2.0.1.tar.gz"
   mode "0644"
   action :create_if_missing
 end
@@ -15,17 +15,17 @@ end
 Chef::Log.info("File downloaded")
 
 bash "untar-redis" do
-  code "(cd /tmp; tar zxvf /tmp/redis2.tar.gz)"
+  code "(cd /tmp; tar zxvf /tmp/redis-2.0.1.tar.gz)"
 end
 
 bash "compile-redis" do
-  code "(cd /tmp/redis-2.0.0; make)"
+  code "(cd /tmp/redis-2.0.1; make)"
 end
 
 files = %w{ redis-server redis-benchmark redis-cli redis-check-dump redis-check-aof }
 files.each do |f|
   bash "install-#{f}" do
-    code "mv /tmp/redis-2.0.0/#{f} /usr/local/bin/#{f}"
+    code "mv /tmp/redis-2.0.1/#{f} /usr/local/bin/#{f}"
   end
 end
 
